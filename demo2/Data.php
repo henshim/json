@@ -29,11 +29,20 @@ class Data
         return $users;
     }
 
-    public function addUser($user)
+    public static function addUser($user)
     {
         $users = self::loadData();
         array_push($users, $user);
         self::saveData($users);
+    }
+
+    public static function createUser($name, $pass)
+    {
+        $user = new User($name, $pass);
+        $users = self::loadData();
+        array_push($users, $user);
+        self::saveData($users);
+        header('Location: index.php');
     }
 
     public static function checkLogin($user)
@@ -57,5 +66,12 @@ class Data
         } else {
             echo 'wrong user';
         }
+    }
+
+    public static function editUser($name,$pass)
+    {
+        $old=self::loadData();
+        $users=new User($name,$pass);
+        //array_splice();
     }
 }
